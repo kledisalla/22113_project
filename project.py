@@ -114,3 +114,5 @@ word = "cancer"
 word_associations_file = "word_associations.csv"
 associated_words = find_associated_words(word, word_associations_file)
 print(associated_words)
+
+print("Hi Dilan")
