@@ -1,150 +1,139 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Mar 13 14:40:57 2024
-
-@author: dimsl
-"""
-
-class Stemming:
-
-    def is_not_a_vowel(self,letter):
+class Stemmer:
+    ''' The class follows the Porter stemmer algorithms '''
+    
+    def is_vowel(self,letter):
         ''' Function which checks if a letter is a vowel or not.
-            Return True is it not, False if it is'''
+            Return True is it, False if it is not'''
         
         if letter in ["a","e","o","i","u"]:
-            return False
-        else:
             return True
-        
-    def is_not_a_vowel_before(self,word,i):
-        ''' Function that checks if a letter is a position is not a vowel like
-            in is_not_a_vowel function.Then, it checks if letter is "y" if it is
-            it returns False if the previous letter in that position is also not a vowel
-        '''
-        letter=word[i]
-        if self.is_not_a_vowel(letter):
-            if letter=="y" and self.is_not_a_vowel(word[i-1]):
-                return False
-            else:
-                return True
         else:
             return False
-    
-
-    def get_word_form(self,word):
-        '''Function that returns how the word is structured. It analyzes each letter
-           of the parameter "word" and returns a string in the form CV where C means 
-           consonant (Not a vowel) and V vowel '''
-        form=''
-        for i in range(len(word)):
-            if self.is_not_a_vowel_before(word,i):
-                if i!=0:
-                    previous_letter=form[-1]
-                    if previous_letter!="C":
-                        form+="C"
-                else:
-                    form+="C"
-            else:
-                if i!=0:
-                    previous_letter=form[-1]
-                    if previous_letter!="V":
-                        form+="V"
+        
+    def word_structure(self,word):
+        '''Function that analyzes the structure of the word. If it encouters a 
+            vowel letter it produces a V else C(consonant). What it returns is a sequence
+            of Cs and Vs based on the letters. If a there are more than one Cs or Vs 
+            in a row, it produces only one letter 
+            For example Tree --> CCVV --> CV 
+        '''
+        form= "V" if self.is_vowel(word[0]) else "C"
+        for letter in word[1:]:
+            if self.is_vowel(letter):
+                if form[-1]=="V":
+                    continue
                 else:
                     form+="V"
-                        
+            else:
+                if form[-1]=="C":
+                    continue
+                else:
+                    form+="C"
         return form
     
-    def cvc_form(self,word):
+    def get_measure(self,word):
         
-        if len(word)>=3:
-            if self.is_not_a_vowel_before(word,-3) and not self.is_not_a_vowel_before(word,-2) and self.is_not_a_vowel_before(word,-1):
-                return True if word[-1] not in ["w","x","y"] else False
-            else:
-                return False
-        else:
-            return False
-                
+        '''Function that return the amount of VC found in the structure of a word '''
+        
+        return self.word_structure(word).count("VC")  
+    
+    def contains_vowel(self,word):
+        for letter in word:
+            if self.is_vowel(letter):
+                return True
+        return False
+    
         
     
-    def remove_endings(self,word):
-        '''Step 1 of stemming: It removes common word endings, sses,ies,s.
-           For example:
-            classes----> class
-            theories---> theori
-            '''
+    def step_1_part_2_suplementary(self,word):
+        ''''Function that suplments step step_1_part_2 '''
         
-        #Deal with sses,ises and s
-        if word.endswith("sses"):
-            word=word.replace("sses","ss")
-        elif word.endswith("ies"):
-            word=word.replace("ies","i")
-        elif word.endswith("s"):
-            word=word.replace("s","")
-        else:
-            pass
+        #Example: inflated --> inflate
+        if word.endswith("at"):
+            return word[:-len("at")] + "ate"
         
-        return word
-    
-    def remove_more_endings(self,word):
-        '''Step 2 of stemming: It removes more common word endings
-           For example:
-               agreed---> agree
-        '''
+        #Example: troubled --> trouble
+        elif word.endswith("bl"):
+            return word[:-len("bl")] + "ble"
         
-        if word.endswith("eed"):
-            #remove the endig eed
-            base_word=word[:-(len("eed"))]
-            #check if the structure of the word has at least a vowel+non vowel pair 
-            if self.get_word_form(word).count("VC")>0:
-                #keep the word after removing "eed" and add "ee".
-                word=base_word
-                word+="ee"
-                
-        elif word.endswith("ed"):
-            base_word=word[:-(len("ed"))]
-            
-            for letter in base_word:
-                if not self.is_not_a_vowel(letter):
-                    word=base_word
-                    word=self.fix_stem_ending(word)
-        elif word.endswith("ing"):
-            base_word=word[:-(len("ing"))]
-            for letter in base_word:
-                if not self.is_not_a_vowel(letter):
-                    word=base_word
-                    word=self.fix_stem_ending(word)
-        return word
-    
-    
-    
-    def fix_stem_ending(self,word): #step 2
-        if word.endswith(("at","bl","iz")):
-            word+="e"
-        if len(word)>=2:
-            if (self.is_not_a_vowel_before(word,-1) and self.is_not_a_vowel_before(word,-2)) and (not word.endswith(("l", "s", "z"))):
-                    word=word[:-1]
-        if self.get_word_form(word).count("VC")==1 and self.cvc_form(word):
-            word+="e"
-        return word
-    
-    def replace_terminal_y(self,word):
-        if word.endswith("y"):
-            for letter in word[:-1]:
-                if not self.is_not_a_vowel(letter):
-                    word=word[:-1]
-                    word+="i"
-        return word
-                    
-    def handle_suffixes(self,word,suffix,replaced_suffix):
-        result=word.rfind(suffix)
-        base = word[:result]
-        if self.get_word_form(base).count("VC") >=0:
-            replaced = base + replaced_suffix
-            return replaced
+        #Example: sized --> size
+        elif word.endswith("iz"):
+            return word[:-len("iz")] + "ize"
+        
+        #If it ends with double consonant and the last letter is not l,s or z then remove the last element 
+        elif (not self.is_vowel(word[-1]) and not self.is_vowel(word[-2])) and not word.endswith(("l", "s", "z")):
+            #Example hopp --> hop
+            return word[:-1]
+        #If it has only one vowel+consonant and it ends with consonant + vowel + consonant and the last letter is not w,x or y
+        elif (self.get_measure(word) == 1 and self.word_structure(word[-3:]) == "CVC") and not self.word_structure(word[-1]) in ["w", "x", "y"]:
+            #Add an e in the end 
+            #Example fil -> file
+            return word + "e"
+
         else:
             return word
         
-    def replace_suffixes(self,word): #step2c
+    '''                           First step of the algorithm                         '''
+                        
+    def step_1_part_1(self,word):
+        '''Part 1: The algorithms deals with plural words
+            For example : classes -> class
+        '''
+        
+        if word.endswith("sses"):
+            return word[:-len("sses")] + "ss"
+        
+        elif word.endswith("ies"):
+            return word[:-len("i")] + "i"
+        elif word.endswith("ss"):
+            return word
+        
+        elif word.endswith("s"):
+            return word[:-1]
+        
+        else:
+            return word
+            
+    def step_1_part_2(self, word):
+        '''Part 2: The second part of step 1 deals with past particle and continuous forms
+           For example:
+               hopping--> hopp --> hop
+        '''
+        stemmed_word=word #Keep default word that comes in the function if none of cases below return something
+        
+        #if the word ends with eed and has at least one vowel+ consonant simply replace eed with ee
+        # Example agreed--> agree
+        
+        if word.endswith("eed") and self.get_measure(word) > 0:
+            stemmed_word = word[:-len("eed")] + "ee"
+        
+        # if it ends with ed then remove the ed. If it contains at least one vowel
+        #call step_1_part_2_suplementary
+        elif word.endswith("ed"):
+
+            if self.contains_vowel(word):
+                base_of_word=self.step_1_part_2_suplementary(word[:-len("ed")])
+                stemmed_word = base_of_word
+                
+        #if it ends with ing to the same as the previous case
+        elif word.endswith("ing"):
+            
+            if self.contains_vowel(word):
+                base_of_word = self.step_1_part_2_suplementary(word[:-len("ing")])
+                stemmed_word = base_of_word
+
+        return stemmed_word
+    
+    def step_1_part_3(self,word):
+        if self.contains_vowel(word) and word.endswith("y"):
+            return word[:-1] + "i"
+        return word
+        
+        
+    '''                           Second step of the algorithm                         '''
+    '''                         Step 2-4 primary deal with suffixes                    '''
+    
+    def step_2(self,word):
         suffix_replacements = {
             'ational': 'ate',
             'tional': 'tion',
@@ -166,6 +155,38 @@ class Stemming:
             'aliti': 'al',
             'iviti': 'ive',
             'biliti': 'ble',
+        }
+        
+        for suffix, replaced_suffix in suffix_replacements.items():
+            if self.get_measure(word)>0 and word.endswith(suffix):
+                return word[:-len(suffix)] + replaced_suffix
+            else: 
+                pass
+        return word
+    
+    '''                           Third step of the algorithm                         ''' 
+    
+    def step_3(self,word):
+            suffix_replacements = {       
+                    'icate': 'ic',
+                    'ative': '',
+                    'alize': 'al',
+                    'iciti': 'ic',
+                    'ful': '',
+                    'ness': '',
+                    'ical': 'ic'
+                    }
+            for suffix, replaced_suffix in suffix_replacements.items():
+                if word.endswith(suffix) and self.get_measure(word)>0:
+                    return word[:-len(suffix)] + replaced_suffix
+                else: 
+                    pass
+            return word
+        
+    '''                           Forth step of the algorithm                         ''' 
+    
+    def step_4(self,word):
+        suffix_replacements = {
             'al': '',
             'ance': '',
             'ence': '',
@@ -184,66 +205,42 @@ class Stemming:
             'ous': '',
             'ive': '',
             'ize': '',
-            'icate': 'ic',
-            'ative': '',
-            'alize': 'al',
-            'iciti': 'ic',
-            'ful': '',
-            'ness': ''
         }
+        if (word.endswith("ion") and self.get_measure(word)>1) and word[-4] in ["t","s"]:
+            return word[:-len("ion")]
         
         for suffix, replaced_suffix in suffix_replacements.items():
-            if word.endswith(suffix):
-                return self.handle_suffixes(word, suffix, replaced_suffix)
-        if word.endswith('ion'):
-            result = word.rfind('ion')
-            base = word[:result]
-            if self.get_word_form(base).count("VC") > 1 and base.endswith("s","t"):
-                word = base
-            word = self.replaceM1(word, '', '')
+            if word.endswith(suffix) and self.get_measure(word)>1:
+                return word[:-len(suffix)] + replaced_suffix
+        
         return word
-        
-    def handle_terminal_e(self,word): #step 4a
-        if word.endswith("e"):
-            if self.get_word_form(word[:-1]).count("VC") >1:
-                return word[:-1]
-            elif self.get_word_form(word[:-1]).count("VC") ==1 and not self.cvc_form(word[:-1]):
-                return word[:-1]
-            else:
-                return word
-        else:
-            return word
-            
-    def remove_double_non_vowel(self,word): #step 4b
-        
-        if self.get_word_form(word).count("VC") >1:
-            if len(word)>=2:
-                if (self.is_not_a_vowel_before(word,-1) and self.is_not_a_vowel_before(word,-2)):
-                    if word.endswith("l"):
-                        return word[:-1]  
-                    else:
-                        return word
-                else:
-                    return word
-            else:
-                return word
-        else:
-            return word
     
+    '''                           Fifth step of the algorithm                         '''
+    '''  Step 5 deals with fixing the words after the suffixes are removed            '''
+    
+    def step_5_part_1(self,word):
+        if self.get_measure(word) > 1 and word.endswith("e"):
+            return word
+        elif self.get_measure(word)==1 and not (self.word_structure(word[-3:]) == "CVC" and self.word_structure(word[-1]) in ["w", "x", "y"]):
+            if word.endswith('e'): 
+                return word
+        return word
+    
+    def step_5_part_2(self,word):
+        if self.get_measure(word)>1 and (not self.is_vowel(word[-1]) and not self.is_vowel(word[-2])) and word.endswith("l"):
+            return word[:-1]
+        return word
+    
+    '''                           Streamlined algorithm                         '''
     def stem_word(self,word):
-        word = self.remove_endings(word)
-        word = self.remove_more_endings(word)
-        word = self.replace_terminal_y(word)
-        word = self.replace_suffixes(word)
-        word = self.handle_terminal_e(word)
-        word= self.remove_double_non_vowel(word)
-
+        word=word.strip().lower()
+        word=self.step_1_part_1(word)
+        word=self.step_1_part_2(word)
+        word=self.step_1_part_3(word)
+        word=self.step_2(word)
+        word=self.step_3(word)
+        word=self.step_4(word)
+        word=self.step_5_part_1(word)
+        word=self.step_5_part_2(word)
         return word
-            
-test=Stemming()
-result=test.stem_word("created")
 
-    
-
-
-    
