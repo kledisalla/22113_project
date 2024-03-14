@@ -30,7 +30,7 @@ def get_abstracts_file(pubmed_file):
 #Main program
 try:
     input_file = sys.argv[1]
-    output_file = os.path.splitext(input_file)[0] + "_output.txt"
+    output_file = os.path.splitext(input_file)[0] + "_abstracts.txt"
     #Call function to create a file of abstracts from the input
     get_abstracts_file(input_file)
     
