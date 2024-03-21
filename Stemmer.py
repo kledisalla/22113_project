@@ -46,33 +46,34 @@ class Stemmer:
     
         
     
-    def step_1_part_2_suplementary(self,word):
+    def step_1_part_2_supplementary(self,word):
         ''''Function that suplments step step_1_part_2 '''
         
         #Example: inflated --> inflate
         if word.endswith("at"):
-            return word[:-len("at")] + "ate"
+            word=word[:-len("at")] +"ate"
         
         #Example: troubled --> trouble
         elif word.endswith("bl"):
-            return word[:-len("bl")] + "ble"
+            word=word[:-len("bl")] + "ble"
         
         #Example: sized --> size
         elif word.endswith("iz"):
-            return word[:-len("iz")] + "ize"
+            word=word[:-len("iz")] + "ize"
         
         #If it ends with double consonant and the last letter is not l,s or z then remove the last element 
         elif (not self.is_vowel(word[-1]) and not self.is_vowel(word[-2])) and not word.endswith(("l", "s", "z")):
             #Example hopp --> hop
-            return word[:-1]
+            word=word[:-1]
+        
         #If it has only one vowel+consonant and it ends with consonant + vowel + consonant and the last letter is not w,x or y
         elif (self.get_measure(word) == 1 and self.word_structure(word[-3:]) == "CVC") and not self.word_structure(word[-1]) in ["w", "x", "y"]:
             #Add an e in the end 
             #Example fil -> file
-            return word + "e"
-
-        else:
-            return word
+            word+="e"
+            
+        return word
+        
         
     '''                           First step of the algorithm                         '''
                         
@@ -85,7 +86,7 @@ class Stemmer:
             return word[:-len("sses")] + "ss"
         
         elif word.endswith("ies"):
-            return word[:-len("i")] + "i"
+            return word[:-len("ies")] + "i"
         elif word.endswith("ss"):
             return word
         
@@ -100,30 +101,31 @@ class Stemmer:
            For example:
                hopping--> hopp --> hop
         '''
-        stemmed_word=word #Keep default word that comes in the function if none of cases below return something
+
         
+        include_step_1_part_2_supplementary=False
         #if the word ends with eed and has at least one vowel+ consonant simply replace eed with ee
         # Example agreed--> agree
         
-        if word.endswith("eed") and self.get_measure(word) > 0:
-            stemmed_word = word[:-len("eed")] + "ee"
+        if word.endswith("eed") :
+            if self.get_measure(word[:-len("eed")]) > 0:
+                word = word[:-len("eed")] +"ee"
+            else:
+                return word
         
-        # if it ends with ed then remove the ed. If it contains at least one vowel
-        #call step_1_part_2_suplementary
-        elif word.endswith("ed"):
 
-            if self.contains_vowel(word[:-len("ed")]):
-                base_of_word=self.step_1_part_2_suplementary(word[:-len("ed")])
-                stemmed_word = base_of_word
+        for suffix in ["ed","ing"]:
+            if word.endswith(suffix):
+                stem= word[:-len(suffix)]
+                if self.contains_vowel(stem):
+                    include_step_1_part_2_supplementary=True
+                    break
+        if not include_step_1_part_2_supplementary:
+            return word
+        
+        word=self.step_1_part_2_supplementary(stem)
+        return word
                 
-        #if it ends with ing to the same as the previous case
-        elif word.endswith("ing"):
-            
-            if self.contains_vowel(word[:-len("ing")]):
-                base_of_word = self.step_1_part_2_suplementary(word[:-len("ing")])
-                stemmed_word = base_of_word
-
-        return stemmed_word
     
     def step_1_part_3(self,word):
         if self.contains_vowel(word[:-1]) and word.endswith("y"):
@@ -231,14 +233,13 @@ class Stemmer:
         return word
     
     '''                           Streamlined algorithm                         '''
+    
     def stem_word(self,word):
         special_characters=[".","(",")","!","?",",","|","[","]",":",""]
         word=word.strip().lower()
-        #Remove special characters
         for char in special_characters:
             word = word.replace(char, "")
-        #make sure that the input is a word and not numbers
-        if len(word)>3 and re.match('^[a-zA-Z]+$', word):
+        if re.match('^[a-zA-Z]+$', word):
             word=self.step_1_part_1(word)
             word=self.step_1_part_2(word)
             word=self.step_1_part_3(word)
@@ -248,4 +249,5 @@ class Stemmer:
             word=self.step_5_part_1(word)
             word=self.step_5_part_2(word)
             return word
+        
 
