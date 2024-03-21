@@ -1,41 +1,55 @@
-from collections import Counter
 import re
+from collections import Counter
+
+def is_word(word):
+    # Define a regular expression pattern to match words
+    word_pattern = r'^[a-zA-Z]+$'
+    # Check if the word matches the pattern
+    return re.match(word_pattern, word) is not None
 
 def calculate_word_frequency(filename):
-    word_freq = Counter()
-    # Read the contents of the text file
-    with open(filename, 'r', encoding='utf-8') as file:
-        text = file.read()
-        # Tokenize the text into words
-        words = re.findall(r'\b\w+\b', text.lower())
-        # Update word frequency counter
-        word_freq.update(words)
+    # Read the token list from the file
+    with open(filename, 'r') as file:
+        token_list = [word.strip() for word in file]
+    # Filter out non-words from the token list
+    words = [word for word in token_list if is_word(word)]
+    # Count the frequency of each word
+    word_freq = Counter(words)
     return word_freq
 
-def determine_threshold_frequency(word_frequency, percentile):
-    sorted_freq = sorted(word_frequency.values(), reverse=True)
-    threshold_index = int(percentile * len(sorted_freq))
-    threshold_frequency = sorted_freq[threshold_index]
+def determine_threshold_frequency(word_frequency, total_words, percentage):
+    # Calculate the threshold frequency based on the desired percentage
+    threshold_frequency = int(total_words * percentage)
     return threshold_frequency
-
 
 def create_blacklist(word_frequency, threshold_frequency):
     # Create a blacklist of non-informative words based on the threshold frequency
-    blacklist = [word for word, freq in word_frequency.items() if freq > threshold_frequency]
+    blacklist = [(word, freq) for word, freq in word_frequency.items() if freq > 1000 and freq <= threshold_frequency]
     return blacklist
 
-# Replace 'abstracts_output.txt' with the path to your text file
-filename = 'abstracts_output.txt'
+def write_blacklist_to_file(blacklist, output_filename):
+    # Write the blacklist to the output file
+    with open(output_filename, 'w') as file:
+        for word, freq in blacklist:
+            file.write(f"{word}: {freq}\n")
+
+# Specify the filename of the token list
+filename = 'stemmed_abstracts.txt'
 
 # Calculate word frequency
 word_frequency = calculate_word_frequency(filename)
 
-# Calculate the 90th percentile threshold frequency
-threshold_frequency = determine_threshold_frequency(word_frequency, 0.90)
+# Calculate total number of words in the token list
+total_words = sum(word_frequency.values())
 
-# Create a blacklist of non-informative words
+# Determine the threshold frequency (90% of total words)
+threshold_frequency = determine_threshold_frequency(word_frequency, total_words, 0.90)
+
+# Create a blacklist of non-informative words with their frequencies
 blacklist = create_blacklist(word_frequency, threshold_frequency)
 
-# Output the blacklist
-print("Blacklist of non-informative words:")
-print(blacklist)
+# Output the blacklist to a file
+output_filename = 'blacklist.txt'
+write_blacklist_to_file(blacklist, output_filename)
+
+print("Blacklist of non-informative words has been written to", output_filename)
