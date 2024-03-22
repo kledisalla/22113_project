@@ -251,3 +251,5 @@ class Stemmer:
             return word
         
 
+st=Stemmer()
+print(st.stem_word(""))
