@@ -302,9 +302,6 @@ class Stemmer:
         #turn the word being stemmed to lower case
         word=word.strip().lower()
         
-        #Remove special characters attached to the word
-        word=re.sub(r"\W","",word)
-        
         #Run each step sequentially
         word=self.step_1_part_1(word)
         word=self.step_1_part_2(word)
