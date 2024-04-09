@@ -15,15 +15,6 @@ This project aims to mine MEDLINE abstracts to discover word associations within
 
 
 
-
-## Installation
-
-Install my-project with npm
-
-```bash
-  npm install my-project
-  cd my-project
-```
     
 ## Dependencies
 - Python 3.x
