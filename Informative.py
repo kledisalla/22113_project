@@ -147,9 +147,14 @@ def get_informative_words(input_file,blacklisted_words_file):
     blacklisted_words=os.path.join(directory + "/", blacklisted_words_file)
     
     # Open the blacklisted_words file and store the content in a list
-    with open(blacklisted_words,"r", encoding="utf8") as blacklist:
-        blacklisted_words=[line.strip() for line in blacklist]
-
+    try:
+        
+        with open(blacklisted_words,"r", encoding="utf8") as blacklist:
+            blacklisted_words=[line.strip() for line in blacklist]
+            
+    except IOError as err:
+        print(err)
+        
     # Initialize batch
     batch=20000
     
@@ -165,81 +170,88 @@ def get_informative_words(input_file,blacklisted_words_file):
     
     entry_start_pattern = r'^(\d+): \w+.*'  # Medline entry pattern
     
-    with open(input_file, "r", encoding="utf8") as infile:
-        
-        for line in infile:
+    try:
+        with open(input_file, "r", encoding="utf8") as infile:
             
-            entry_line = re.match(entry_start_pattern, line)
-            
-            if entry_line and abstract:
+            for line in infile:
                 
+                entry_line = re.match(entry_start_pattern, line)
                 
-                # Call function to tokenize the abstract and stemm its words
-                tokenized_abstract,total_words=tokenize_abstract(abstract)
-                
-                # Call function to remove non informative words and stopwords
-                cleaned_abstract = process_abstract(tokenized_abstract, blacklisted_words) 
-                
-                # Call function to calculate single word frequencies for current abstract
-                single_word_frequencies=calculate_single_word_frequencies(tokenized_abstract)
-                
-                # Call function to calculate co-occurrence frequencies for pairs in current abstract
-                co_occurrence=calculate_co_occurrence(cleaned_abstract)
-                
-                #Call function to calculate log-likelihood for pairs in current abstract
-                log_likelihood_score=calculate_log_likelihood_scores(single_word_frequencies,co_occurrence,total_words)
-                
-                # Add log-likelihoods in total_log_likelihood_scores 
-                for pair,value in log_likelihood_score.items():
+                if entry_line and abstract:
                     
-                    if pair not in total_log_likelihood_scores:
-                        total_log_likelihood_scores[pair]=value
+                    
+                    # Call function to tokenize the abstract and stemm its words
+                    tokenized_abstract,total_words=tokenize_abstract(abstract)
+                    
+                    # Call function to remove non informative words and stopwords
+                    cleaned_abstract = process_abstract(tokenized_abstract, blacklisted_words) 
+                    
+                    # Call function to calculate single word frequencies for current abstract
+                    single_word_frequencies=calculate_single_word_frequencies(tokenized_abstract)
+                    
+                    # Call function to calculate co-occurrence frequencies for pairs in current abstract
+                    co_occurrence=calculate_co_occurrence(cleaned_abstract)
+                    
+                    #Call function to calculate log-likelihood for pairs in current abstract
+                    log_likelihood_score=calculate_log_likelihood_scores(single_word_frequencies,co_occurrence,total_words)
+                    
+                    # Add log-likelihoods in total_log_likelihood_scores 
+                    for pair,value in log_likelihood_score.items():
                         
-                    else:
-                        total_log_likelihood_scores[pair]+=value
-                
-                # Check if 20,000 entries have been processed
-                if counter == batch:
+                        if pair not in total_log_likelihood_scores:
+                            total_log_likelihood_scores[pair]=value
+                            
+                        else:
+                            total_log_likelihood_scores[pair]+=value
                     
-                    # Sort the dictionary by values in descending order
-                    sorted_scores = sorted(total_log_likelihood_scores.items(), key=lambda x: x[1], reverse=True)
+                    # Check if 20,000 entries have been processed
+                    if counter == batch:
+                        
+                        # Sort the dictionary by values in descending order
+                        sorted_scores = sorted(total_log_likelihood_scores.items(), key=lambda x: x[1], reverse=True)
 
-                    # Retain only the top 100 pairs
-                    current_top_50_pairs = sorted_scores[:50]
+                        # Retain only the top 100 pairs
+                        current_top_50_pairs = sorted_scores[:50]
 
-                    # Combine current top 50 with overall top 50
-                    combined_top_100 = overall_top_100 + current_top_50_pairs
+                        # Combine current top 50 with overall top 50
+                        combined_top_100 = overall_top_100 + current_top_50_pairs
 
-                    # Convert combined_top_100 to a dictionary to remove duplicates
-                    unique_pairs_dict = {}
+                        # Convert combined_top_100 to a dictionary to remove duplicates
+                        unique_pairs_dict = {}
+                        
+                        for pair in combined_top_100:
+                            unique_pairs_dict[pair[0]] = max(unique_pairs_dict.get(pair[0], 0), pair[1])
+
+                        # Sort the combined top 200 scores
+                        overall_top_100 = sorted(unique_pairs_dict.items(), key=lambda x: x[1], reverse=True)[:50]
+
+                        # Reset counter
+                        counter = 0
                     
-                    for pair in combined_top_100:
-                        unique_pairs_dict[pair[0]] = max(unique_pairs_dict.get(pair[0], 0), pair[1])
-
-                    # Sort the combined top 200 scores
-                    overall_top_100 = sorted(unique_pairs_dict.items(), key=lambda x: x[1], reverse=True)[:50]
-
-                    # Reset counter
-                    counter = 0
+                    # After processing the current abstract, clear the variable for the next entry
+                    abstract=''    
+                    
+                    #Increment the counter by 1            
+                    counter+=1
                 
-                # After processing the current abstract, clear the variable for the next entry
-                abstract=''    
+                # If it is not a new entry, concatinate the line to the abstract variable
+                else:
+                    
+                    abstract += line
+    except IOError as err:
+        print(err)
                 
-                #Increment the counter by 1            
-                counter+=1
-            
-            # If it is not a new entry, concatinate the line to the abstract variable
-            else:
+    try:
+            # When done with all the abstracts write the top 10 pairs in a file
+            with open(output_file,"w", encoding="utf8") as output:
                 
-                abstract += line
-                
-        # When done with all the abstracts write the top 10 pairs in a file
-        with open(output_file,"w", encoding="utf8") as output:
-            
-            for pair in overall_top_100:
-                output.write(f"{pair}\n")      
-
-        return output_file
+                for pair in overall_top_100:
+                    output.write(f"{pair}\n")      
+                    
+    except IOError as err:
+        print(err)
+        
+    return output_file
         
   
    
