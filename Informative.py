@@ -140,11 +140,14 @@ def get_informative_words(input_file,blacklisted_words_file):
     # Extract directory of the input_file
     directory, _= os.path.split(input_file)
     
-    #Set the paths for the output files
+    # Set the paths for the output files
     output_file= os.path.join(directory + "/", "log-likelihood_scores.txt")
     
+    # Get the path for the blacklisted words
     blacklisted_words=os.path.join(directory + "/", blacklisted_words_file)
-    with open(blacklisted_words) as blacklist:
+    
+    # Open the blacklisted_words file and store the content in a list
+    with open(blacklisted_words,"r", encoding="utf8") as blacklist:
         blacklisted_words=[line.strip() for line in blacklist]
 
     # Initialize batch
@@ -162,7 +165,7 @@ def get_informative_words(input_file,blacklisted_words_file):
     
     entry_start_pattern = r'^(\d+): \w+.*'  # Medline entry pattern
     
-    with open(input_file) as infile:
+    with open(input_file, "r", encoding="utf8") as infile:
         
         for line in infile:
             
@@ -231,7 +234,7 @@ def get_informative_words(input_file,blacklisted_words_file):
                 abstract += line
                 
         # When done with all the abstracts write the top 10 pairs in a file
-        with open(output_file,"w") as output:
+        with open(output_file,"w", encoding="utf8") as output:
             
             for pair in overall_top_100:
                 output.write(f"{pair}\n")      

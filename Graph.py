@@ -13,7 +13,7 @@ def plot_graph(input_file):
 
     G = nx.Graph()
 
-    with open(input_file) as infile:
+    with open(input_file, "r", encoding="utf8") as infile:
         for line in infile:
             # Parse each line
             pair, weight = eval(line.strip())
