@@ -43,5 +43,4 @@ This project was undertaken as part of a course at the Technical University of D
 
 
 ## Notes
-The pipeline uses the file acquired from https://teaching.healthtech.dtu.dk/22113/index.php/22113/22163_-_Unix_%26_Python_Programming_for_Bioinformaticians
-and as such, it was designed with that file format in mind.
+The pipeline uses the file acquired from course 22113 of DTU and as such, it was designed with that file format in mind.
