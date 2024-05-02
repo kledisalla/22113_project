@@ -15,19 +15,18 @@ def extract_abstracts(input_file):
     # Pattern for the ending of an entry
     ending_pattern = r'^PMID: \d* +\[PubMed - indexed for MEDLINE]'
     
+    # Get the current directory
+    current_directory = os.getcwd()
+    
     # Capture the full path of the directory where, the given by the user, input file is stored and the file name
-
     directory,_ = os.path.split(input_file)
-
-    # If the absolute path of the input file was not given by the user. Meaning that it was in the same directory
-    # as the script, capture the current directory so as to save the upcoming results in the same place
-    
     if directory == "":
-                directory = os.getcwd() +"/"
+            directory = os.getcwd() +"/"
     
-    # Set the name of the output file where the abstracts and headers will be saved to "abstracts.txt"     
+    # Set the name of the output file where the abstracts and headers will be saved to "abstracts.txt" 
+    # and set its path to the current directory  
         
-    output_file_path= os.path.join(directory, "abstracts.txt")
+    output_file_path= os.path.join(current_directory, "abstracts.txt")
     
     # Initialize abstract count
     entry_count = 0

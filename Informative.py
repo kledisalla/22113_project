@@ -166,7 +166,7 @@ def get_informative_words(input_file,blacklisted_words_file):
     
     # Initliaze the dictionaries that will store the likelihood of word pairs in a batch
     total_log_likelihood_scores={}
-    overall_top_100=[]
+    overall_top_2000=[]
     
     entry_start_pattern = r'^(\d+): \w+.*'  # Medline entry pattern
     
@@ -210,20 +210,20 @@ def get_informative_words(input_file,blacklisted_words_file):
                         # Sort the dictionary by values in descending order
                         sorted_scores = sorted(total_log_likelihood_scores.items(), key=lambda x: x[1], reverse=True)
 
-                        # Retain only the top 100 pairs
-                        current_top_50_pairs = sorted_scores[:50]
+                        # Retain only the top 2000 pairs
+                        current_top_2000_pairs = sorted_scores[:2000]
 
-                        # Combine current top 50 with overall top 50
-                        combined_top_100 = overall_top_100 + current_top_50_pairs
+                        # Combine current top 2000 with overall top 2000
+                        combined_top_4000 = overall_top_2000 + current_top_2000_pairs
 
-                        # Convert combined_top_100 to a dictionary to remove duplicates
+                        # Convert combined_top_4000 to a dictionary to remove duplicates
                         unique_pairs_dict = {}
                         
-                        for pair in combined_top_100:
+                        for pair in combined_top_4000:
                             unique_pairs_dict[pair[0]] = max(unique_pairs_dict.get(pair[0], 0), pair[1])
 
-                        # Sort the combined top 200 scores
-                        overall_top_100 = sorted(unique_pairs_dict.items(), key=lambda x: x[1], reverse=True)[:50]
+                        # Sort the combined top 2000 scores
+                        overall_top_2000 = sorted(unique_pairs_dict.items(), key=lambda x: x[1], reverse=True)[:2000]
 
                         # Reset counter
                         counter = 0
@@ -240,12 +240,16 @@ def get_informative_words(input_file,blacklisted_words_file):
                     abstract += line
     except IOError as err:
         print(err)
+    
+    except FileNotFoundError as e:
+        print(e)
+        sys.exit(1)
                 
     try:
             # When done with all the abstracts write the top 10 pairs in a file
             with open(output_file,"w", encoding="utf8") as output:
                 
-                for pair in overall_top_100:
+                for pair in overall_top_2000:
                     output.write(f"{pair}\n")      
                     
     except IOError as err:

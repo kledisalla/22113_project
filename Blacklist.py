@@ -39,7 +39,7 @@ def word_frequency_distribution_plot(word_frequencies):
     plt.xlabel('Word Frequency')
     plt.ylabel('Frequency Count (log scale)')
     plt.yscale('log') 
-    plt.title('Word Frequency Distribution (Logarithmic Scale with Bin Edges)')
+    plt.title('Word Frequency Distribution')
 
     # Add annotations for bin edges
     for i in range(len(bins) - 1):
@@ -179,10 +179,14 @@ def extract_non_infomative_words(input_file,number_of_abstracts):
                     outfile.write(word+"\n")
 
             return output_file
+        
     except IOError as err:
         print(err)
         sys.exit(1)
-    
+    except FileNotFoundError as e:
+        print(e)
+        sys.exit(1)
+        
 
 
 
