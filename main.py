@@ -120,7 +120,7 @@ try:
     blacklisted_words_path=extract_non_infomative_words(abstracts_file_path,number_of_abstracts)
     
     # Call the functions from get_blacklisted_words.py script to process the abstracts for informative words
-    print("Procesessing infomative words.. ")
+    print("Processing informative words.. ")
     informative_pairs_table=get_informative_words(abstracts_file_path,blacklisted_words_path)
     
     # Call the functions from Graph_words.py to plot the infomative words
