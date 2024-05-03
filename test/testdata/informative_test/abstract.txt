@@ -1,0 +1,220 @@
+1: Clin Adv Hematol Oncol. 2008 Dec;6(12):1-15.
+
+Myelodysplastic syndrome (MDS) is relatively common, with an incidence estimated
+as high as 50 cases per 100,000 people per year. This cancer mainly affects older
+(>or=60 years) patients. MDS refers to a collection of hematologic malignancies
+that share an ineffective production, or hematopoiesis, of normal bone marrow or
+myeloid cells. As progressive bone marrow failure occurs, patients generally
+display gradually worsening cytopenias specific to the type of bone marrow cell
+affected, such as thrombocytopenia or neutropenia. MDS patients often develop
+disease-related anemia requiring chronic blood transfusion; this can lead to
+complications including iron overload. As MDS progresses and the number of bone
+marrow blasts increases, the disease transforms into acute myelogenous leukemia
+(AML). Several classification systems have been developed to identify and
+differentiate particular types of MDS. Proper identification is essential,
+allowing the oncologist to determine prognosis, as well as the optimal
+therapeutic strategy. Several agents have been developed or are under
+investigation for the treatment of MDS, with the therapeutic goal of increasing
+survival and decreasing the rate of AML transformation. Currently, 3 agents are
+FDA-approved: azacitidine, decitabine, and lenalidomide. This clinical roundtable
+will discuss the optimal management of patients with each of these approved
+therapies, as well as the various classification systems used to differentiate
+MDS subtypes for treatment.
+
+2: Clin Adv Hematol Oncol. 2008 Dec;6(12):1-13, 14-6.
+
+As with many malignancies, cytogenetic information has become increasingly
+important to the diagnosis and proper treatment of colorectal cancer. In
+particular, several recent studies have confirmed that KRAS is not only one of
+the most commonly mutated genes in colorectal cancer, but also essential to
+treatment decision-making. Several key studies have demonstrated that patients
+with mutant KRAS do not respond to treatment with epidermal growth factor
+inhibitors. This finding has several implications for clinicians who treat
+patients with metastatic colorectal cancer. The following monograph includes
+discussions on the key issues surrounding the integration of recent data on KRAS
+status into the care of patients with this disease.
+
+3: J Phys Chem B. 2008 Dec 25;112(51):16975-81.
+
+Amelogenin is the predominant protein found during enamel development and has
+been shown to be essential to proper enamel formation. Leucine-rich amelogenin
+peptide (LRAP) is a naturally occurring splice variant that preserves the charged
+N- and C-termini of full length amelogenin, regions thought to be crucial in
+interacting with hydroxaypatite. Particularly, the highly charged C-terminal
+hexapeptide (KREEVD) is thought to be the region most intimately interacting with
+hydroxyapatite (HAP). The structure of this charged region was investigated,
+along with the proximity to the surface and the mobility of two of the residues.
+The structure was found to be consistent with a random coil or more extended
+structure, as has been seen for more internalized residues in the C-terminus. The
+backbone K54(13C'), V58(13C'), and V58(15N) were all found to be close to the
+surface of HAP, approximately 6.0 angstroms from the nearest 31P atom, suggesting
+a strong interaction and emphasizing the importance of these residues in
+interacting with HAP. However, both ends of the hexapeptide at residues K54 and
+V58 experience significant mobility under hydrated conditions, implying that
+another portion of the protein helps to stabilize the strong LRAP-HAP
+interaction. Interestingly, the backbone of the C-terminal third of the protein
+is consistently 6.0 angstroms from the HAP surface, providing a model in this
+region of the protein lying flat on the surface with no three-dimensional
+folding. The combination of these features, that is, a random coil structure, a
+significant mobility, and a lack of three-dimensional folding in this region of
+the protein, may have an important functional role, possibly allowing maximum
+crystal inhibition at low protein concentrations.
+
+4: Nano Lett. 2008 Dec;8(12):4151-7.
+
+The idea of electronic yarns and textiles has appeared for quite some time, but
+their properties often do not meet practical expectations. In addition to
+chemicallmechanical durability and high electrical conductivity, important
+materials qualifications include weavablity, wearability, light weight, and
+"smart" functionalities. Here we demonstrate a simple process of transforming
+general commodity cotton threads into intelligent e-textiles using a
+polyelectrolyte-based coating with carbon nanotubes (CNTs). Efficient charge
+transport through the network of nanotubes (20 omega/cm) and the possibility to
+engineer tunneling junctions make them promising materials for many
+high-knowledge-content garments. Along with integrated humidity sensing, we
+demonstrate that CNT-cotton threads can be used to detect albumin, the key
+protein of blood, with high sensitivity and selectivity. Notwithstanding future
+challenges, these proof-of-concept demonstrations provide a direct pathway for
+the application of these materials as wearable biomonitoring and telemedicine
+sensors, which are simple, sensitive, selective, and versatile.
+
+5: Nano Lett. 2008 Dec;8(12):4386-90.
+
+We describe an aptamer-based surface enhanced resonance Raman scattering (SERRS)
+sensor with high sensitivity, specificity, and stability for the detection of a
+coagulation protein, human alpha-thrombin. The sensor achieves high sensitivity
+and a limit of detection of 100 pM by monitoring the SERRS signal change upon the
+single-step of thrombin binding to immobilized thrombin binding aptamer. The
+selectivity of the sensor is demonstrated by the specific discrimination of
+thrombin from other protein analytes. The specific recognition and binding of
+thrombin by the thrombin binding aptamer is essential to the mechanism of the
+aptamer-based sensor, as shown through measurements using negative control
+oligonucleotides. In addition, the sensor can detect 1 nM thrombin in the
+presence of complex biofluids, such as 10% fetal calf serum, demonstrating that
+the immobilized, 5'-capped, 3'-capped aptamer is sufficiently robust for clinical
+diagnostic applications. Furthermore, the proposed sensor may be implemented for
+multiplexed detection using different aptamer-Raman probe complexes.
+
+6: Nano Lett. 2008 Dec;8(12):4593-6.
+
+X-ray based computed tomography (CT) is among the most convenient
+imaging/diagnostic tools in hospitals today in terms of availability, efficiency,
+and cost. However, in contrast to magnetic resonance imaging (MRI) and various
+nuclear medicine imaging modalities, CT is not considered a molecular imaging
+modality since targeted and molecularly specific contrast agents have not yet
+been developed. Here we describe a targeted molecular imaging platform that
+enables, for the first time, cancer detection at the cellular and molecular level
+with standard clinical CT. The method is based on gold nanoprobes that
+selectively and sensitively target tumor selective antigens while inducing
+distinct contrast in CT imaging (increased X-ray attenuation). We present an in
+vitro proof of principle demonstration for head and neck cancer, showing that the
+attenuation coefficient for the molecularly targeted cells is over 5 times higher
+than for identical but untargeted cancer cells or for normal cells. We expect
+this novel imaging tool to lead to significant improvements in cancer therapy due
+to earlier detection, accurate staging, and microtumor identification.
+
+7: Pediatrics. 2009;123(1):e1-8.
+
+OBJECTIVE: Tuberculous meningitis is the most severe extrapulmonary complication
+of tuberculosis, with high morbidity and mortality rates. The objective of this
+study was to assess the relationship between presenting clinical characteristics
+and outcome of pediatric tuberculous meningitis. PATIENTS AND METHODS: We present
+a retrospective cohort study of all of the children diagnosed with tuberculous
+meningitis in a large university hospital in South Africa between January 1985
+and April 2005. We compared demographic, clinical, and diagnostic characteristics
+with clinical outcome after 6 months of treatment. RESULTS: We included 554
+patients. Common characteristics on admission were young age (82%; <5 years),
+stage II or III tuberculous meningitis (97%), nonspecific symptoms existing for
+>1 week (58%), poor weight gain or weight loss (91%), loss of consciousness
+(96%), motor deficit (63%), meningeal irritation (98%), raised intracranial
+pressure (23%), brainstem dysfunction (39%), and cranial nerve palsies(27%).
+Common features of tuberculous meningitis on computed tomography scan of the
+brain were hydrocephalus (82%), periventricular lucency (57%), infarctions(32%),
+and basal meningeal enhancement (75%). Clinical outcome after 6 months was as
+follows: normal (16%), mild sequelae (52%), severe sequelae (19%), and death
+(13%). All of the patients diagnosed with stage I tuberculous meningitis had
+normal outcome. Factors associated with poor outcome in univariate analyses were
+as follows: African ethnicity, young age, HIV coinfection, stage III tuberculous
+meningitis, absence of headache and vomiting, convulsions, decreased level of
+consciousness,motor deficits, cranial nerve palsies, raised intracranial
+pressure, brain stem dysfunction and radiographic evidence of hydrocephalus,
+periventricular lucency, and infarction. Ethnicity, stage of disease, headache,
+convulsions, motor function, brainstem dysfunction, and cerebral infarctions were
+independently associated with poor outcome in multivariate logistic regression
+analysis. CONCLUSIONS: Tuberculous meningitis starts with nonspecific symptoms
+and is often only diagnosed when brain damage has already occurred. Earlier
+diagnosis will improve outcome significantly. We were able to identify presenting
+variables independently associated with poor clinical outcome.
+
+8: South Med J. 2008 Aug;101(8):786-90.
+
+BACKGROUND: Increasing utilization and appeal of substance abuse services
+requires understanding public perceptions of substance abuse and problem
+resolution. METHOD: A statewide survey (N = 439) assessed public views of the
+prevalence of problems, service utilization, and outcomes using random digit
+dialing sampling. RESULTS: Compared with population data, the sample
+overestimated the prevalence of alcohol and drug problems, accurately gauged
+rates of help-seeking for substance-related problems, and underestimated rates of
+recovery, particularly natural resolutions without treatment. Perceived
+influences on help-seeking included extrinsic pressures like legal problems and
+wanting help with problems of living related to substance misuse. CONCLUSIONS:
+Substance abuse is less prevalent and less intractable than the public perceives,
+and natural resolutions are common, but appear to be largely hidden from the
+public view. Implications for reducing barriers and expanding services in
+healthcare and public health settings are discussed.
+
+9: Swed Dent J Suppl. 2009;(198):10-139.
+
+This thesis attempts to describe the opinion of the work with quality, quality
+management, and work environment among the employees at Oral and Maxillofacial
+Surgery (OMFS) clinics in Sweden. THIS THESIS AIMED TO: Analyse if the OMFS
+clinics in Sweden actively work with quality development and if so which systems
+they use. Explore the opinion of the employees about quality work. Describe how
+the employees of OMFS clinics in Sweden perceive good work, i.e., their image of
+the dimensions that the profession should contain to be really good work.
+Investigate whether there is a discrepancy between ideal and reality for this
+group. Describe how the employees of OMFS clinics in Sweden perceive their
+health. Analyse how work environment influenced attitudes to and knowledge of
+quality among employees of OMFS clinics in Sweden. The study was based on
+self-report questionnaires which in 2003 were sent to all OMFS clinics in Sweden.
+The response rate was 86%. Only at two clinics did all the respondents agree on
+their system. Surgeons rated intellectually stimulating work as most important,
+and the hazard-free work environment as least important. The nurses rated
+stimulating fellowship as most important, and the opportunity for career
+advancement as least important. The percentage unit differences between the ideal
+and the reality were largest for the item the work provides opportunities to have
+an influence on important decisions. There were significant differences between
+maxillofacial. surgeons and dental nurses and assistant nurses as to muscle- and
+joint trouble. The differences were also significant between men and women both
+as to muscle- and joint troubles and somatic trouble. Only work environment was
+significant for attitude towards quality work. Profession, gender, clinic size,
+and a factor for hard demand had significant associations to quality management
+system used or not. IN CONCLUSION: More than half of the respondents stated that
+they worked with a quality system. The dental nurses and assistant nurses had a
+much more positive view on the potential of quality work as a means to improve
+their work than had the maxillo-facial surgeons. For a majority of the dental
+nurses the working situation concerning the physical environment was more
+important than for the maxillo-facial surgeons. The employees emphasized free,
+influential, and intellectually stimulating work, but the dissonance between
+ideal and reality was rather wide concerning good work. OMFS employees are
+feeling unhealthy, but no worse than other high-risk-groups in human service
+working and better than female general practice dentists. The women of OMFS
+employees feel worse than the men.
+
+10: Photodiagnosis Photodyn Ther. 2008 Jun;5(2):153-8. Epub 2008 Jul 7.
+
+Non-muscle invasive bladder cancer is the most expensive cancer to manage on a
+per patient basis due to the high recurrence rate, low mortality and the need for
+long term, often lifelong surveillance. Current white-light endoscopic surgery
+leads to a significant number of patients having "recurrent" cancer at their
+first follow-up cystoscopy. The introduction of a single dose of intravesical
+chemotherapy immediately after the initial resection has helped to reduce the
+recurrence rate but it can be toxic and should not be administered to patients
+with potential bladder perforations after transurethral resection of bladder
+tumour (TURBT). Photodynamic diagnosis cystoscopy has been shown to significantly
+improve the quality of the initial TURBT leading to a 20% reduction in tumour
+recurrences at 3 months. This benefit is sustained for at least 8 years, leading
+to a reduction in further invasive procedures and treatment. Despite the initial
+increased cost related to introducing a photodynamic diagnosis service there is
+clearly long-term significant cost savings to be made, as well as improving the
+patient experience and quality of life.

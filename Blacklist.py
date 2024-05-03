@@ -15,10 +15,13 @@ def random_sampling(number_of_abstracts):
     '''
     
     # Calculate the 10% of the total number of abstracts
-    ten_percent = int(0.10 * number_of_abstracts)
-    
-    # Sampling
-    sampled_data = random.sample(range(1, number_of_abstracts + 1), ten_percent)
+    if number_of_abstracts>=10:
+        ten_percent = int(0.10 * number_of_abstracts)
+        
+        # Sampling
+        sampled_data = random.sample(range(1, number_of_abstracts + 1), ten_percent)
+    else:
+        raise Exception("abstract number is too small for sampling")
     
     return sampled_data
 
@@ -34,36 +37,39 @@ def word_frequency_distribution_plot(word_frequencies):
     '''
     
     # Plot histogram with logarithmic scale on y-axis and displaying edges of bins
-    counts, bins, _ = plt.hist(word_frequencies.values(), bins=20, edgecolor='black')
-    
-    plt.xlabel('Word Frequency')
-    plt.ylabel('Frequency Count (log scale)')
-    plt.yscale('log') 
-    plt.title('Word Frequency Distribution')
-
-    # Add annotations for bin edges
-    for i in range(len(bins) - 1):
-        plt.text(bins[i] + (bins[i+1] - bins[i])/2, counts[i], f'{bins[i]:.2f}', ha='center', va='bottom')
-    
-    # Save the plot
-    plt.savefig("word_frequency_distribution.png")
-    
-    # Extract the threshold
-    threshold_frequency = None
-    
-    # Default threshold is set to 1000 or lower based on fine-tunning
-    for i in range(len(counts)):
+    if word_frequencies:
+        counts, bins, _ = plt.hist(word_frequencies.values(), bins=20, edgecolor='black')
         
-        if counts[i] <= 1000:
-            threshold_frequency = bins[i]
+        plt.xlabel('Word Frequency')
+        plt.ylabel('Frequency Count (log scale)')
+        plt.yscale('log') 
+        plt.title('Word Frequency Distribution')
+
+        # Add annotations for bin edges
+        for i in range(len(bins) - 1):
+            plt.text(bins[i] + (bins[i+1] - bins[i])/2, counts[i], f'{bins[i]:.2f}', ha='center', va='bottom')
+        
+        # Save the plot
+        plt.savefig("word_frequency_distribution.png")
+        
+        # Extract the threshold
+        threshold_frequency = None
+        
+        # Default threshold is set to 1000 or lower based on fine-tunning
+        for i in range(len(counts)):
             
-            break
-   
+            if counts[i] <= 1000:
+                threshold_frequency = bins[i]
+                
+                break
+    else:
+        raise Exception("Nothing to plot")
+        
     return threshold_frequency
     
 
 
-def extract_non_infomative_words(input_file,number_of_abstracts):
+def extract_non_informative_words(input_file,number_of_abstracts):
     
     ''' 
     Function that creates an output file which stores non infomative words based
@@ -182,9 +188,6 @@ def extract_non_infomative_words(input_file,number_of_abstracts):
         
     except IOError as err:
         print(err)
-        sys.exit(1)
-    except FileNotFoundError as e:
-        print(e)
         sys.exit(1)
         
 

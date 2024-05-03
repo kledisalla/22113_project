@@ -149,11 +149,15 @@ def get_informative_words(input_file,blacklisted_words_file):
     # Open the blacklisted_words file and store the content in a list
     try:
         
+        if os.path.getsize(blacklisted_words) == 0:
+            raise Exception(" blacklisted_words file is empty")
+        
         with open(blacklisted_words,"r", encoding="utf8") as blacklist:
             blacklisted_words=[line.strip() for line in blacklist]
             
     except IOError as err:
         print(err)
+        sys.exit(1)
         
     # Initialize batch
     batch=20000
@@ -171,6 +175,10 @@ def get_informative_words(input_file,blacklisted_words_file):
     entry_start_pattern = r'^(\d+): \w+.*'  # Medline entry pattern
     
     try:
+        
+        if os.path.getsize(input_file) == 0:
+            raise Exception(" The file is empty")
+        
         with open(input_file, "r", encoding="utf8") as infile:
             
             for line in infile:
@@ -240,9 +248,6 @@ def get_informative_words(input_file,blacklisted_words_file):
                     abstract += line
     except IOError as err:
         print(err)
-    
-    except FileNotFoundError as e:
-        print(e)
         sys.exit(1)
                 
     try:
@@ -254,6 +259,7 @@ def get_informative_words(input_file,blacklisted_words_file):
                     
     except IOError as err:
         print(err)
+        sys.exit(1)
         
     return output_file
         

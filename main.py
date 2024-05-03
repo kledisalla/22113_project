@@ -1,6 +1,6 @@
 from Stemmer import Stemmer
 from Extraction import extract_abstracts
-from Blacklist import extract_non_infomative_words
+from Blacklist import extract_non_informative_words
 from Informative import get_informative_words
 from Graph import plot_graph
 import urllib.request
@@ -94,21 +94,26 @@ def get_file(filename=None):
 
 
 def check_pair(infile,word_pair):
-    count=0
-    with open(infile,"r") as llh_file:
-        
-        for line in llh_file:
-            count+=1
-            pair, llh = eval(line.strip())
-            word1,word2=pair
-            if (word1==word_pair[0] and word2==word_pair[1]) and count<=50:
-                return f"The word pair is in the top 50 most likely pairs with a log-likelihood of {llh}"
-            elif word1==word_pair[0] and word2==word_pair[1]:
-                return f"The pair is in the top 2000 most likely pairs with a log-likelihood of {llh}"
-        return "The word pair does not belong in the top 2000 most likely ones"
-
+    try:
+        if os.path.getsize(infile) == 0:
+            raise Exception(" The file is empty")
+        count=0
+        with open(infile,"r") as llh_file:
+            
+            for line in llh_file:
+                count+=1
+                pair, llh = eval(line.strip())
+                word1,word2=pair
+                if (word1==word_pair[0] and word2==word_pair[1]) and count<=50:
+                    return f"The word pair is in the top 50 most likely pairs with a log-likelihood of {llh}"
+                elif word1==word_pair[0] and word2==word_pair[1]:
+                    return f"The pair is in the top 2000 most likely pairs with a log-likelihood of {llh}"
+            return "The word pair does not belong in the top 2000 most likely ones"
+    except IOError as err:
+        print(err)
+        sys.exit(1)
  
-try:
+def main():
     
     infile=get_file(filename=None)
 
@@ -117,7 +122,7 @@ try:
     
     # Call the functions from get_blacklisted_words.py script to process the abstracts for non-informative words
     print("Blacklisting words..")
-    blacklisted_words_path=extract_non_infomative_words(abstracts_file_path,number_of_abstracts)
+    blacklisted_words_path=extract_non_informative_words(abstracts_file_path,number_of_abstracts)
     
     # Call the functions from get_blacklisted_words.py script to process the abstracts for informative words
     print("Processing informative words.. ")
@@ -143,6 +148,5 @@ try:
         else:
             print("Please answer with 'yes' or 'no'.")
     
-except IOError as err:
-    print(err)
-    sys.exit(1)
+if __name__=="__main__":
+    main()

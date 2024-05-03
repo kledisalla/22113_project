@@ -38,6 +38,9 @@ def extract_abstracts(input_file):
     paragraph_buffer=''
     
     try:
+        if os.path.getsize(input_file) == 0:
+            raise Exception(" The file is empty")
+
         
         with open(input_file,"r", encoding="utf8") as input_file, open(output_file_path,"w", encoding="utf8") as output_file:
             
